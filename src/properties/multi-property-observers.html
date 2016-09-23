@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+<x-custom></x-custom>
+<dom-module id="x-custom">
+  <template>
+    <input id="lastInput" is="iron-input" placeholder="姓"><br/>
+    <input id="firstInput" is="iron-input" placeholder="名"><br/>
+    <input id="ageInput" is="iron-input" placeholder="年齢"><br/>
+    <button on-tap="_editUserOnTap">変更</button>
+    <div>姓: <span id="lastValue"></span>, 名: <span id="firstValue"></span>, 年齢: <span id="ageValue"></span></div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom',
+        properties: {
+          last: String,
+          first: String,
+          age: Number
+        },
+        observers: [
+          // オブザーバー関数の引数に監視対象のプロパティを指定
+          '_updateUser(first, last, age)'
+        ],
+        // 指定プロパティのいずれかが変更された際のハンドラ
+        _updateUser: function (first, last, age) {
+          this.$.lastValue.textContent = last;
+          this.$.firstValue.textContent = first;
+          this.$.ageValue.textContent = age;
+        },
+        // 変更ボタンがクリックされた際のハンドラ
+        _editUserOnTap: function (e) {
+          this.last = this.$.lastInput.value;
+          this.first = this.$.firstInput.value;
+          this.age = this.$.ageInput.value;
+        }
+      });
+    });
+  </script>
+</dom-module>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<employee-list></employee-list>
+
+<dom-module id="employee-list">
+  <template>
+    <!-- フィルタ有り/無しのチェックボックス -->
+    <div>
+      <span>管理者または技術者をフィルタ: </span>
+      <input id="filterCheckbox" type="checkbox" on-change="_setupFilter" checked>
+    </div>
+    <br>
+    <!-- 社員リストのテンプレートリピーター -->
+    <template is="dom-repeat" id="employeesRepeat" items="{{employees}}">
+      <!-- 社員名 -->
+      <div>名前: <span>{{item.name}}</span></div>
+      <div>
+        <!-- 管理者か否かのチェックボックス -->
+        <span>管理者:
+          <input type="checkbox" checked="{{item.admin}}" on-change="_adminOnChange">
+        </span>
+        <!-- 技術者か否かのチェックボックス -->
+        <span>技術者:
+          <input type="checkbox" checked="{{item.engineer}}" on-change="_engineerOnChange">
+        </span>
+      </div>
+      <br>
+    </template>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'employee-list',
+        ready: function () {
+          this.employees = [
+            {name: 'Sally Johnson', admin: false, engineer: true},
+            {name: 'Bob Smith', admin: true, engineer: false},
+            {name: 'Michael Jackson', admin: true, engineer: true}
+          ];
+          this._setupFilter();
+        },
+        // テンプレートリピーターにフィルタ設定を行う関数
+        _setupFilter: function () {
+          if (this.$.filterCheckbox.checked) {
+            // フィルタを設定(フィルタ関数を文字列で指定している)
+            this.$.employeesRepeat.filter = '_filterFunc';
+            this.$.employeesRepeat.observe = 'admin engineer';
+          } else {
+            // フィルタを解除
+            this.$.employeesRepeat.filter = undefined;
+          }
+        },
+        // 管理者または技術者をフィルタリングするためのフィルタ関数
+        _filterFunc: function (employee) {
+          return employee.admin || employee.engineer;
+        },
+        // 管理者のチェックが変更された場合のハンドラ
+        _adminOnChange: function (event) {
+          var admin = event.target.checked;
+          event.model.set('item.admin', admin);
+        },
+        // 技術者のチェックが変更された場合のハンドラ
+        _engineerOnChange: function (event) {
+          var engineer = event.target.checked;
+          event.model.set('item.engineer', engineer);
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

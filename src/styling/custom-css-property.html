@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element></my-element>
+
+<dom-module id="my-toolbar">
+  <template>
+    <style>
+      :host {
+        padding: 4px;
+        background-color: gray;
+      }
+      .title {
+        /* タイトル色のカスタムCSSプロパティを定義 */
+        color: var(--my-toolbar-title-color);
+      }
+    </style>
+
+    <span class="title">{{titleName}}</span>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-toolbar',
+        properties: {
+          titleName: String
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      /* このカスタムエレメント内のmy-toolbarのタイトルはデフォルトで白 */
+      :host {
+        --my-toolbar-title-color: white;
+      }
+      /* .warningクラスが設定されたmy-toolbarのタイトルは赤 */
+      .warning {
+        --my-toolbar-title-color: red;
+      }
+    </style>
+
+    <my-toolbar title-name="This one is white."></my-toolbar>
+    <my-toolbar title-name="This one is white too."></my-toolbar>
+    <my-toolbar class="warning" title-name="This one is red."></my-toolbar>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element'
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

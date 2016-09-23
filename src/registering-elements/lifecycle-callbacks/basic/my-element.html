@@ -1,0 +1,26 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<script>
+  MyElement = Polymer({
+    is: 'my-element',
+    properties: {
+      userName: String
+    },
+    created: function () {
+      console.log(this.localName + ' was created');
+    },
+    ready: function () {
+      console.log(this.localName + ' was ready');
+    },
+    attached: function () {
+      console.log(this.localName + ' was attached');
+    },
+    detached: function () {
+      console.log(this.localName + ' was detached');
+    },
+    attributeChanged: function (name, type) {
+      console.log(this.localName + ' attribute ' + name +
+        ' was changed to ' + this.getAttribute(name));
+    }
+  });
+</script>

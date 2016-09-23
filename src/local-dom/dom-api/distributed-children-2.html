@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<x-custom><div>山田</div></x-custom>
+
+<dom-module id="x-custom">
+  <template>
+    <content id="myContent"></content>
+    <button on-tap="validOnTap">検証</button>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+    Polymer({
+      is: 'x-custom',
+      validOnTap: function (e) {
+        // Light DOMからdivエレメント取得
+        var div = Polymer.dom(this).querySelector('div');
+        // contentエレメントに挿入されたエレメントを取得
+        var distributed = this.getContentChildren('#myContent')[0];
+
+        // この検証は正常になる
+        console.assert(distributed === div,
+          'distributedとdivが同一オブジェクトではありません。');
+      }
+    });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

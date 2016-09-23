@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/iron-input/iron-input.html">
+</head>
+<body>
+
+<user-view first="Samuel" last="Adams"></user-view>
+
+<dom-module id="user-view">
+  <template>
+    First: <span>{{first}}</span><br>
+    Last: <span>{{last}}</span>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'user-view',
+        properties: {
+          first: String,
+          last: String
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

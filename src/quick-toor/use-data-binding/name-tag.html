@@ -1,0 +1,20 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="name-tag">
+
+   <template>
+    <!-- ownerプロパティとバインド -->
+    This is <b>{{owner}}</b>'s name-tag element.
+   </template>
+
+   <script>
+  Polymer({
+    is: "name-tag",
+    ready: function () {
+      // このエレメントのownerプロパティの設定
+      this.owner = "Daniel";
+    }
+  });
+</script>
+
+</dom-module>

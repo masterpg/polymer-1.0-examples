@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<x-custom>
+  <span>山田</span>
+</x-custom>
+
+<dom-module id="x-custom">
+  <template>
+    <div style="border: solid red;">
+      <span>私は</span>
+      <content></content>
+      <span>です。</span>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom',
+        attached: function () {
+          var nameEl = document.createElement('span');
+          nameEl.innerHTML = '太郎';
+          // Light DOMへエレメントを追加
+          Polymer.dom(this).appendChild(nameEl);
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

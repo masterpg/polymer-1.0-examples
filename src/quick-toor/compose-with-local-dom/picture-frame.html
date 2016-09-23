@@ -1,0 +1,28 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="picture-frame">
+  
+  <!-- このカスタムエレメントにスコープが限定されたCSS -->
+  <style>
+    div {
+      display: inline-block;
+      background-color: #ccc;
+      border-radius: 8px;
+      padding: 4px;
+    }
+  </style>
+  
+  <template>
+    <div>
+      <!-- カスタムエレメントの利用側で定義された子エレメントがここにレンダリングされる -->
+      <content></content>
+    </div>
+  </template>
+  
+  <script>
+    Polymer({
+      is: "picture-frame",
+    });
+  </script>
+
+</dom-module>

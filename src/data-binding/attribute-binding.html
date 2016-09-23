@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<host-element></host-element>
+
+<script>
+  document.addEventListener('WebComponentsReady', function () {
+    Polymer({
+      is: 'custom-element',
+      // 属性を定義
+      hostAttributes: {
+        'string-attr': ''
+      },
+      // プロパティを定義
+      properties: {
+        stringProp: String
+      }
+    });
+  });
+</script>
+
+<dom-module id="host-element">
+  <template>
+    <!-- 属性値のバインドは`$=`で行う -->
+    <custom-element id="attrElement" string-attr$="{{stringValue}}"></custom-element>
+    <!-- プロパティのバインドは通常どおり`=`で行う -->
+    <custom-element id="propElement1" string-prop="{{stringValue}}"></custom-element>
+    <!-- プロパティのバインドを`$=`で行ってみる(実験として) -->
+    <custom-element id="propElement2" string-prop$="{{stringValue}}"></custom-element>
+
+    <button on-tap="_getValueOnTap">値取得</button>
+    <div id="attrResult"></div>
+    <div id="propResult1"></div>
+    <div id="propResult2"></div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'host-element',
+        properties: {
+          stringValue: {type: String, value: 'hello'}
+        },
+        _getValueOnTap: function () {
+          // id="attrElement"のstring-attr属性の値を取得して表示
+          var stringAttr = this.$.attrElement.getAttribute('string-attr');
+          this.$.attrResult.innerHTML = 'attrElement.string-attr: 属性値=' + stringAttr;
+
+          // id="propElement1"のstringPropプロパティの属性値とプロパティ値を取得して表示
+          var stringPropAttr1 = this.$.propElement1.getAttribute('string-prop');
+          var stringPropValue1 = this.$.propElement1.stringProp;
+          this.$.propResult1.innerHTML =
+            'propElement1.stringProp: 属性値=' + stringPropAttr1 + ', プロパティ値=' + stringPropValue1;
+
+          // id="propElement2"のstringPropプロパティの属性値とプロパティ値を取得して表示
+          var stringPropAttr2 = this.$.propElement2.getAttribute('string-prop');
+          var stringPropValue2 = this.$.propElement2.stringProp;
+          this.$.propResult2.innerHTML =
+            'propElement2.stringProp: 属性値=' + stringPropAttr2 + ', プロパティ値=' + stringPropValue2;
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

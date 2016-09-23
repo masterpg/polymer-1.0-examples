@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<employee-list></employee-list>
+
+<dom-module id="employee-list">
+  <template>
+    <div>
+      <!-- ソート有り/無しのチェックボックス -->
+      <span>Sort name: </span>
+      <input id="sortCheckbox" type="checkbox" on-change="_setupSort" checked>
+    </div>
+    <br>
+    <!-- 社員リストのテンプレートリピーター -->
+    <template is="dom-repeat" id="employeesRepeat" items="{{employees}}">
+      <!-- 社員名 -->
+      <div>Name: <span>{{item.name}}</span></div>
+    </template>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'employee-list',
+        ready: function () {
+          this.employees = [
+            {name: 'Sally Johnson'},
+            {name: 'Bob Smith'},
+            {name: 'Michael Jackson'}
+          ];
+          this._setupSort();
+        },
+        // テンプレートリピーターにソート設定を行う関数
+        _setupSort: function () {
+          if (this.$.sortCheckbox.checked) {
+            // ソートを設定(ソート関数を関数オブジェクトで指定している)
+            this.$.employeesRepeat.sort = this._sortFunc;
+            this.$.employeesRepeat.observe = 'name';
+          } else {
+            // ソートを解除
+            this.$.employeesRepeat.sort = undefined;
+          }
+        },
+        // 社員名で社員リストをソートするためのソート関数
+        _sortFunc: function (employee1, employee2) {
+          if (employee1.name < employee2.name) {
+            return -1;
+          } else if (employee1.name > employee2.name) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

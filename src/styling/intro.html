@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element>
+  <div class="special">In light DOM!</div>
+</my-element>
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      :host {
+        display: block;
+        border: 1px solid red;
+      }
+      #child-element {
+        background: yellow;
+      }
+      .content-wrapper ::content > .special {
+        background: orange;
+      }
+    </style>
+
+    <div id="child-element">In local DOM!</div>
+    <div class="content-wrapper">
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element'
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

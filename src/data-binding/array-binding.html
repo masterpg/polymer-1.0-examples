@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<bind-array-element></bind-array-element>
+
+<dom-module id="bind-array-element">
+  <template>
+    <div>[[_arrayItem(myArray.*, 0, 'name')]]</div>
+    <div>[[_arrayItem(myArray.*, 1, 'name')]]</div>
+    <button on-tap="_changeOnTap">変更</button>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'bind-array-element',
+        properties: {
+          myArray: {
+            type: Array,
+            value: [{name: 'Bob'}, {name: 'Doug'}]
+          }
+        },
+        // 最初の引数は配列の変更の内容が格納される変更レコードで、
+        // change.baseはバインディング時に指定された基準となる配列(ここではmyArray)です。
+        _arrayItem: function (change, index, path) {
+          // this.get(path, root)は指定されたパスの値を返します。
+          // このパスは対象オブジェクト(ここではmyArray)の相対パスです。
+          var value = this.get(path, change.base[index]);
+
+          return 'index: ' + index + ', path: ' + path + ', value: ' + value;
+        },
+        _changeOnTap: function () {
+          // myArray配列の先頭にnameが"Susan"というアイテムを追加
+          this.unshift('myArray', {name: 'Susan'});
+          // myArray[1]のアイテムのnameを"Rupert"に変更
+          this.set('myArray.1.name', 'Rupert');
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

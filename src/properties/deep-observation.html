@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/iron-input/iron-input.html">
+</head>
+<body>
+<x-custom></x-custom>
+<dom-module id="x-custom">
+  <template>
+    <div>
+      <input id="postalInput" is="iron-input" placeholder="郵便番号">
+      <input id="nameInput" is="iron-input" placeholder="名前">
+      <button on-tap="_editUserOnTap">変更</button>
+      <button on-tap="_recreateUserOnTap">再作成</button>
+    </div>
+    <div>〒: <span id="postalValue"></span>, 名前: <span id="nameValue"></span></div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      var Address = function (postalCode) {
+        this.postalCode = postalCode;
+      };
+      var User = function(postalCode, name) {
+        this.address = new Address(postalCode);
+        this.name = name;
+      };
+
+      Polymer({
+        is: 'x-custom',
+        properties: {
+          user: {
+            type: User,
+            value: function () {
+              return new User();
+            }
+          }
+        },
+        observers: [
+          // オブザーバー関数に監視対象のオブジェクトをワイルドカードで指定
+          '_userChanged(user.*)'
+        ],
+        // userが変更された際のハンドラ
+        _userChanged: function (changeRecord) {
+          // userオブジェクト自身の変更があった場合の処理
+          if (changeRecord.path == 'user') {
+            this.$.postalValue.textContent = changeRecord.value.address.postalCode;
+            this.$.nameValue.textContent = changeRecord.value.name;
+          }
+          // userオブジェクトのサブプロパティに変更があった場合の処理
+          else {
+            // 郵便番号に変更があった場合の処理
+            if (changeRecord.path == 'user.address.postalCode') {
+              this.$.postalValue.textContent = changeRecord.value;
+            }
+            // 名前に変更があった場合の処理
+            else if (changeRecord.path == 'user.name') {
+              this.$.nameValue.textContent = changeRecord.value;
+            }
+          }
+        },
+        // 変更ボタンがクリックされた際のハンドラ
+        _editUserOnTap: function (e) {
+          // 郵便番号、名前を変更
+          this.set('user.name', this.$.nameInput.value);
+          this.set('user.address.postalCode', this.$.postalInput.value);
+        },
+        // 再作成ボタンがクリックされた際のハンドラ
+        _recreateUserOnTap: function (e) {
+          // ユーザーを再作成
+          this.user = new User(this.$.postalInput.value, this.$.nameInput.value);
+        }
+      });
+    });
+  </script>
+</dom-module>
+</body>
+</html>

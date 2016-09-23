@@ -1,0 +1,32 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="x-custom">
+  <template>
+    <div style="border: solid red;">
+      <span>私は</span>
+      <content></content>
+      <span>です。</span>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'x-custom',
+      attached: function () {
+        var i, child;
+        console.log('■■■ Local DOM children ■■■');
+        var lightDomChildren = Polymer.dom(this.root).children;
+        for (i = 0; i < lightDomChildren.length; i++) {
+          child = lightDomChildren[i];
+          console.log(child);
+        }
+        console.log('■■■ Light DOM children ■■■');
+        var localDomChildren = Polymer.dom(this).children;
+        for (i = 0; i < localDomChildren.length; i++) {
+          child = localDomChildren[i];
+          console.log(child);
+        }
+      }
+    });
+  </script>
+</dom-module>
+

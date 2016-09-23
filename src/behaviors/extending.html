@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element></my-element>
+
+<script>
+  document.addEventListener('WebComponentsReady', function () {
+    // 既存のBehavior
+    OldBehavior = {
+      properties: {
+        elementName: String
+      },
+      say: function (message) {
+        console.log(this.elementName + ': ' + message);
+      }
+    };
+
+    // 新しく作成するBehaviorの実装
+    NewBehaviorImpl = {
+      // スーパクラス(OldBehavior)のsay()をオーバーライドしている
+      say: function (message) {
+        // スーパクラスのsay()を呼び出し、コンソールにメッセージを出力する。
+        OldBehavior.say.call(this, message);
+        // 自クラスの新しい機能としてポップアップでメッセージを表示する。
+        // この際スーパクラスの`elementName`プロパティに`this`でアクセスしている。
+        alert(this.elementName + ': ' + message);
+      }
+    };
+
+    // 新しく作成するBehaviorの定義
+    NewBehavior = [OldBehavior, NewBehaviorImpl];
+  });
+</script>
+
+<dom-module id="my-element">
+  <template>
+    <button on-tap="_buttonOnTap">Tap Me!</button>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element',
+        behaviors: [NewBehavior],
+        _buttonOnTap: function (event) {
+          this.elementName = 'my-element';
+          this.say('Hello World!');
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

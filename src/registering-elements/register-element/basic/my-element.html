@@ -1,0 +1,13 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<script>
+  // カスタムエレメントの登録
+  MyElement = Polymer({
+    // isで指定した名前がカスタムエレメントのHTMLタグ名になる
+    is: 'my-element',
+    // この関数はライフサイクルコールバックの1つです
+    created: function () {
+      this.textContent = 'My Element!';
+    }
+  });
+</script>

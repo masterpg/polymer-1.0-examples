@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element></my-element>
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      .container {
+        background-color: blue;
+      }
+    </style>
+
+    <div class$="{{containerClass}}">
+      <span style$="{{labelStyle}}">Hello World!</span>
+    </div>
+    <div>
+      <input disabled$="{{inputDisabled}}">
+      <button on-tap="_toggleEnabledOnTap">使用可/不可</button>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element',
+        properties: {
+          containerClass: {type: String, value: 'container'},
+          labelStyle: {type: String, value: 'color: white'},
+          inputDisabled: {type: Boolean, value: false}
+        },
+        _toggleEnabledOnTap: function () {
+          this.inputDisabled = !this.inputDisabled;
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

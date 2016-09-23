@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+<x-custom></x-custom>
+<dom-module id="x-custom">
+  <template>
+    <div>
+      <input id="firstInput" value="{{first}}" placeholder="first">
+      <button on-tap="_editFirstOnTap">変更</button>
+    </div>
+    <div>
+      <input id="lastInput" value="{{last}}" placeholder="last">
+      <button on-tap="_editLastOnTap">変更</button>
+    </div>
+    <div>fullName: <span>{{fullName}}</span></div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom',
+        properties: {
+          first: String,
+          last: String,
+          fullName: {
+            type: String,
+            // firstまたはlastが変更されるとこの関数が呼び出され、
+            // 戻り値がfullNameに格納されます。
+            computed: '_computeFullName(first, last)'
+          }
+        },
+        _computeFullName: function (first, last) {
+          console.log('_computeFullName: first=' + first + ', last=' + last);
+          return first + ' ' + last;
+        },
+        _editFirstOnTap: function (e) {
+          this.first = this.$.firstInput.value;
+        },
+        _editLastOnTap: function (e) {
+          this.last = this.$.lastInput.value;
+        }
+      });
+    });
+  </script>
+</dom-module>
+</body>
+</html>

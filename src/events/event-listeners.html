@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<x-custom></x-custom>
+
+
+<dom-module id="x-custom">
+  <template>
+    <span id="user">山田 太郎</span>
+  </template>
+  <script>
+    Polymer({
+      is: 'x-custom',
+      listeners: {
+        // this.$ハッシュに格納されているid付きノードを指定できる
+        'user.tap': 'userOnTap'
+      },
+      userOnTap: function (e, detail) {
+        alert('aaa');
+        // イベント発生時の処理を記述
+      }
+    });
+  </script>
+</dom-module>
+
+<!--<dom-module id="x-custom">-->
+  <!--<template>-->
+    <!--&lt;!&ndash; 以下どれをタップしてもregularTap()ハンドラが呼び出される &ndash;&gt;-->
+    <!--<div>regular tap 1</div>-->
+    <!--<div>regular tap 2</div>-->
+    <!--<div>regular tap 3</div>-->
+    <!--&lt;!&ndash;-->
+      <!--以下のdivをタップするとspecialTap()ハンドラが呼び出される-->
+      <!--(つまりspecialTap()とregularTap()の2つハンドラが呼び出される)-->
+    <!--&ndash;&gt;-->
+    <!--<div id="special">special tap</div>-->
+  <!--</template>-->
+
+  <!--<script>-->
+    <!--document.addEventListener('WebComponentsReady', function () {-->
+      <!--Polymer({-->
+        <!--is: 'x-custom',-->
+        <!--listeners: {-->
+          <!--// カスタムエレメント自体がタップされた際のハンドラを指定している-->
+          <!--'tap': '_regularTap',-->
+          <!--// id="special"のエレメントがタップされた際のハンドラを指定している-->
+          <!--'special.tap': '_specialTap'-->
+        <!--},-->
+        <!--_regularTap: function (e, detail) {-->
+          <!--alert("regular tap");-->
+        <!--},-->
+        <!--_specialTap: function (e, detail) {-->
+          <!--alert("special tap");-->
+        <!--}-->
+      <!--});-->
+    <!--});-->
+  <!--</script>-->
+<!--</dom-module>-->
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element></my-element>
+
+<dom-module id="my-element">
+  <style>
+    :host {
+      /**
+       * 自身のカスタムエレメントのカスタムCSSプロパティの設定は:hostでのみ可能です。
+       */
+      --custom-color: red;
+    }
+    .container {
+      /**
+       * 自身のカスタムエレメントのカスタムCSSプロパティの設定は無効です。
+       * (他のカスタムエレメントのカスタムCSSプロパティは設定可能です)
+       */
+      --custom-color: blue;
+    }
+    .child {
+      /**
+       * このカスタムCSSプロパティは常に赤になります。
+       * (:hostでredが設定されているので)
+       */
+      color: var(--custom-color);
+    }
+  </style>
+
+  <template>
+    <div class="container">
+      <div class="child">I will be red</div>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'my-element'});
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

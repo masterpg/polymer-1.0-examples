@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+
+  <!-- custom-styleを使用してスタイルを定義 -->
+  <style is="custom-style">
+    /* カスタムエレメントのLocal DOMに影響をあたえずに、アプリケーション全体の設定ができる */
+    div {
+      color: white;
+      font-style: italic;
+      background-color: green;
+    }
+    /* /deep/ と ::shadow コンビネータを使用することができる */
+    body /deep/ my-element::shadow .title {
+      color: red;
+    }
+    /* アプリケーション全体で使用可能なカスタムCSSプロパティを定義できる */
+    :root {
+      --my-element-title-background: blue;
+    }
+  </style>
+
+</head>
+<body>
+
+<!--
+  メインドキュメントレベルでアプリケーション全体で使用するdivに対してスタイルが定義されており、
+  これが適用されてHeaderとFooterの文字は白でイタリック、背景色は緑になる。
+  ただしmy-elementにはこのスタイルは適用されない。
+-->
+<div>Header</div>
+<my-element></my-element>
+<div>Footer</div>
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      /**
+       * メインドキュメントレベルで /deep/ と ::shadow を使用して.titleにスタイルが定義されており、
+       * それが適用されてタイトルの文字色が赤になる。
+       */
+      .title {
+        /* メインドキュメントレベルで設定された青が背景色に設定される */
+        background-color: var(--my-element-title-background);
+      }
+    </style>
+
+    <div class="title">My Element!</div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element'
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

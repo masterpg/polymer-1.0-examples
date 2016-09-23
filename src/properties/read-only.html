@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+<x-custom></x-custom>
+<dom-module id="x-custom">
+  <template>
+    <div>
+      <span>{{counter}}</span>
+      <button on-tap="_incrementOnTap">+</button>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom',
+        properties: {
+          counter: {
+            type: Number,
+            value: 0,
+            // このフラグをtrueに設定
+            readOnly: true
+          }
+        },
+        _incrementOnTap: function (e) {
+          // リードオンリープロパティは、"_setプロパティ(value)"
+          // という自動で生成されるsetterで値を設定しなくてはならない
+          this._setCounter(this.counter + 1);
+        }
+      });
+    });
+  </script>
+</dom-module>
+</body>
+</html>

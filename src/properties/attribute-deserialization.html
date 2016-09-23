@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+<x-custom user='{"first":"Taro","last":"Yamada"}' manager
+          current="2015/08/01 18:00"></x-custom>
+<script>
+  document.addEventListener('WebComponentsReady', function () {
+    Polymer({
+      is: 'x-custom',
+      properties: {
+        user: Object,
+        manager: {
+          type: Boolean
+        },
+        current: Date
+      },
+      attached: function () {
+        this.innerHTML =
+          'My user is ' + this.user.first + ' ' + this.user.last + '.<br/>' +
+          'This user is ' + (this.manager ? '' : 'not') + ' a manager.<br/>' +
+          this.current;
+      }
+    });
+  });
+</script>
+</body>
+</html>

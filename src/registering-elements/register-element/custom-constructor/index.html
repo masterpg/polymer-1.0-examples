@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="my-element.html">
+</head>
+<body>
+<script>
+  document.addEventListener('WebComponentsReady', function () {
+    // カスタムエレメントに独自の引数を渡し、インスタンスを作成
+    var myEl = new MyElement('taro', 18);
+    // 作成したカスタムエレメントをbodyに追加
+    Polymer.dom(document.body).appendChild(myEl);
+  });
+</script>
+</body>
+</html>

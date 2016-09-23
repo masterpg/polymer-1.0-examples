@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<simple-menu></simple-menu>
+
+<dom-module id="simple-menu">
+  <template>
+    <template is="dom-repeat" id="menu" items="{{menuItems}}">
+      <div>
+        <span>{{item.name}}</span>
+        <span>{{item.ordered}}</span>
+        <!-- イベントアノテーションでイベントリスナを設定 -->
+        <button on-click="_orderOnClick">Order</button>
+      </div>
+    </template>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'simple-menu',
+        ready: function () {
+          this.menuItems = [
+            {name: "Pizza", ordered: 0},
+            {name: "Pasta", ordered: 0},
+            {name: "Toast", ordered: 0}
+          ];
+        },
+        // テンプレートリピーターの各インスタンスが持つ
+        // Orderボタンがクリックされた際に呼び出される。
+        _orderOnClick: function (event) {
+          // テンプレートリピーターが追加した`model`を取得
+          var model = event.model;
+          // テンプレートリピーターのインスタンスとひも付く配列の`item`を取得
+          var item = model.item;
+          // `model.set()`を使用してオーダー数をインクリメント
+          model.set('item.ordered', item.ordered + 1);
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

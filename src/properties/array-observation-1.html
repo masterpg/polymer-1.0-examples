@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+<x-custom></x-custom>
+<dom-module id="x-custom">
+  <template>
+    <div>
+      <input id="nameInput" is="iron-input" placeholder="名前">
+      <button on-tap="_addUserOnTap">追加</button>
+      <template is="dom-repeat" items="{{users}}" as="user">
+        <div>
+          <span>{{user.name}}</span>
+          <button on-tap="_removeUserOnTap">削除</button>
+        </div>
+      </template>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      var User = function (name) {
+        this.name = name;
+      };
+
+      Polymer({
+        is: 'x-custom',
+        properties: {
+          users: {
+            type: Array,
+            value: function () {
+              return [];
+            }
+          }
+        },
+        observers: [
+          // パスにsplicesを付加
+          '_usersAddedOrRemoved(users.splices)'
+        ],
+        _usersAddedOrRemoved: function (changeRecord) {
+          if (!changeRecord) {
+            return;
+          }
+          changeRecord.indexSplices.forEach(function (s) {
+            // 削除されたユーザーをログ表示
+            s.removed.forEach(function (user) {
+              console.log(user.name + ' was removed');
+            });
+            // 追加されたユーザー数をログ表示
+            console.log(s.addedCount + ' users were added');
+          }, this);
+        },
+        _addUserOnTap: function (e) {
+          // ユーザーを追加
+          this.push('users', new User(this.$.nameInput.value));
+        },
+        _removeUserOnTap: function (e) {
+          // ユーザーを削除
+          this.splice('users', e.model.index, 1);
+        }
+      });
+    });
+  </script>
+</dom-module>
+</body>
+</html>

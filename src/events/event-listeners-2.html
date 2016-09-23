@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+</head>
+<body>
+
+<x-custom></x-custom>
+
+<dom-module id="x-custom">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100px;
+        height: 100px;
+        border: solid blue;
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+      }
+      #playground {
+        border: solid green;
+      }
+    </style>
+
+    <span id="playground">Tap me!</span>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom',
+        listeners: {
+          // this.$ハッシュに格納されているid付きノードを指定できる
+          'playground.tap': '_playgroundOnTap'
+        },
+        _playgroundOnTap: function (e, detail) {
+          alert('_playgroundOnTap');
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<x-custom></x-custom>
+
+<dom-module id="x-custom">
+  <template>
+    <span id="clickMe" style="border: solid blue">Click me!</span>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom'
+      });
+    });
+  </script>
+</dom-module>
+
+<script>
+  document.querySelector('x-custom').addEventListener('click', function (event) {
+    console.log('■■■ rootTarget ■■■');
+    console.log(Polymer.dom(event).rootTarget);
+    console.log('■■■ localTarget ■■■ ');
+    console.log(Polymer.dom(event).localTarget);
+    console.log('■■■    path     ■■■ ');
+    console.log(Polymer.dom(event).path);
+    console.log('■■■   target   ■■■');
+    console.log(event.target);
+  });
+</script>
+
+</body>
+</html>

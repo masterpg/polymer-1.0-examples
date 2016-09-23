@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/iron-input/iron-input.html">
+</head>
+<body>
+
+<host-element></host-element>
+
+<dom-module id="child-element">
+  <template>
+    <!-- `input`イベントをリッスンし、`childValue`プロパティを<input>.valueに設定する -->
+    <input value="{{childValue::input}}" placeholder="childValue">
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: "child-element",
+        properties: {
+          childValue: {
+            type: String,
+            notify: true
+          }
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+<dom-module id="host-element">
+  <template>
+    <div>
+      <div>host-element :</div>
+      <!-- `input`イベントをリッスンし、`hostValue`プロパティを<input>.valueへ設定する -->
+      <input value="{{hostValue::input}}" placeholder="hostValue">
+      <!-- `change`イベントをリッスンし、`hostChecked`プロパティを<input>.checkedへ設定する -->
+      <input type="checkbox" checked="{{hostChecked::change}}">
+      <!-- 変更内容の表示 -->
+      <div>hostChecked: <strong>{{hostChecked}}</strong></div>
+    </div><br>
+    <div>
+      <div>child-element (その1) :</div>
+      <!-- `child-value-changed`イベントをリッスンする -->
+      <child-element child-value="{{hostValue::child-value-changed}}"></child-element>
+    </div><br>
+    <div>
+      <div>child-element (その2) :</div>
+      <!-- デフォルトの命名規則が適用され`child-value-changed`イベントをリッスンする -->
+      <child-element child-value="{{hostValue}}"></child-element>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: "host-element",
+        properties: {
+          hostValue: String,
+          hostChecked: {type: Boolean, value: false}
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

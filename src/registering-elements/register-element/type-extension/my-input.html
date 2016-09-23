@@ -1,0 +1,13 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<script>
+  MyInput = Polymer({
+    is: 'my-input',
+    // 継承するネイティブエレメントを指定
+    extends: 'input',
+    created: function () {
+      this.value = 'My input';
+      this.style.border = '1px solid red';
+    }
+  });
+</script>

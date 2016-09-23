@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<x-custom></x-custom>
+
+<dom-module id="x-custom">
+  <template>
+    <button on-click="_fireKickOnClick">Kick Me</button>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom',
+        _fireKickOnClick: function (e, detail) {
+          // "kick"というカスタムイベントに"{kicked: true}"
+          // というデータを付加して発火する。
+          this.fire('kick', {kicked: true});
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+<script>
+  // "kick"カスタムイベントのハンドラです
+  document.querySelector('x-custom').addEventListener('kick', function (e) {
+    // "kick"カスタムイベントに付加されたデータ"kicked"を表示(trueが表示される)
+    alert('kicked: ' + e.detail.kicked);
+  })
+</script>
+
+</body>
+</html>

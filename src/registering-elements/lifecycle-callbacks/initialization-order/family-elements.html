@@ -1,0 +1,56 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<!-- 兄カスタムエレメント -->
+<dom-module id="big-brother">
+  <template>
+    <p>{{myName}}</p>
+  </template>
+  <script>
+    Polymer({
+      is: 'big-brother',
+      properties: {
+        myName: {type: String, value: '兄'}
+      },
+      attached: function () {
+        this.async(function () {
+          // ここでなら親兄弟エレメントにアクセスできる
+          var myParentEl = Polymer.dom(this).parentNode;
+          var littleBrotherEl = Polymer.dom(this).nextElementSibling;
+          console.log(myParentEl.myName + ', ' + this.myName + ', ' + littleBrotherEl.myName);
+        });
+      }
+    });
+  </script>
+</dom-module>
+
+<!-- 親カスタムエレメント -->
+<dom-module id="my-parent">
+  <template>
+    <p>{{myName}}</p>
+    <content></content>
+  </template>
+  <script>
+    Polymer({
+      is: 'my-parent',
+      properties: {
+        myName: {type: String, value: '親'}
+      }
+    });
+  </script>
+</dom-module>
+
+<!-- 弟カスタムエレメント -->
+<dom-module id="little-brother">
+  <template>
+    <p>{{myName}}</p>
+  </template>
+  <script>
+    Polymer({
+      is: 'little-brother',
+      properties: {
+        myName: {type: String, value: '弟'}
+      }
+    });
+  </script>
+</dom-module>
+

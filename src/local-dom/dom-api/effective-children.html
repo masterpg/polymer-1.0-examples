@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link rel="import" href="../../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+  <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+</head>
+<body>
+
+<popup-carousel>
+  <img src="images/red1.png">
+  <img src="images/red2.png">
+</popup-carousel>
+
+<dom-module id="simple-carousel">
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'simple-carousel',
+        attached: function () {
+          var childrenCount = Polymer.dom(this).children.length;
+          var effectiveChildrenCount = this.getEffectiveChildren().length;
+          console.log('childrenCount: ' + childrenCount +
+            ', effectiveChildrenCount: ' + effectiveChildrenCount);
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+<dom-module id="popup-carousel">
+  <template>
+    <simple-carousel class="layout horizontal">
+      <content id="popupContentNode"></content>
+    </simple-carousel>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'popup-carousel'
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

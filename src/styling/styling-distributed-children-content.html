@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element>
+  <!-- このエレメントには.specialのスタイルが当たる  -->
+  <div class="special">私はグリーンイエローです。</div>
+  <div>
+    <!-- このエレメントには.specialを設定してもスタイルは当たらない  -->
+    <div class="special">私は透明です。</div>
+  </div>
+</my-element>
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      /* スタイル適用を<content>タグ直下に挿入されるエレメントに限定する */
+      :host ::content > .special {
+        background: greenyellow;
+      }
+    </style>
+
+    <content></content>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element'
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

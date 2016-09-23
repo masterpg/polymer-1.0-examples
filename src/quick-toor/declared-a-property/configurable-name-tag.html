@@ -1,0 +1,23 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="configurable-name-tag">
+  
+  <template>
+    <!-- ownerプロパティとバインド -->
+    This is <b>{{owner}}</b>'s configurable-name-tag element.
+  </template>
+  
+  <script>
+    Polymer({
+      is: "configurable-name-tag",
+      properties: {
+        // ownerプロパティの宣言
+        owner: {
+          type: String,
+          value: "Daniel"
+        }
+      }
+    });
+  </script>
+
+</dom-module>

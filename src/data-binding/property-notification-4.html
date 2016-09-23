@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<host-element></host-element>
+
+<dom-module id="child-element">
+  <template>
+    <div>childProp: <span>{{childProp}}</span></div>
+    <div><input id="childInput" on-input="_childInputOnInput" placeholder="childProp"></div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'child-element',
+        properties: {
+          childProp: {
+            type: String,
+            notify: true,
+            readOnly: true  // readOnly: true を指定!!
+          }
+        },
+        _childInputOnInput: function (event) {
+          // "childProp"の値が、上位であるホストエレメントの"hostProp"へ伝播する。
+          // リードオンリープロパティは、自動で生成される"_setプロパティ(value)"
+          // というsetterで値を設定しなくてはならない
+          this._setChildProp(this.$.childInput.value);
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+<dom-module id="host-element">
+  <template>
+    <!-- "hostProp"の値は、下位である子エレメントで無視される(readOnly: trueが起因して) -->
+    <child-element child-prop="{{hostProp::child-prop-changed}}"></child-element>
+    <div><input value="{{hostProp::input}}" placeholder="hostProp"></div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'host-element',
+        properties: {
+          hostProp: String
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

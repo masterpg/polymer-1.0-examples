@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link rel="import" href="../../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+</head>
+<body>
+
+  <popup-carousel>
+    <img src="images/red1.png">
+    <img src="images/red2.png">
+  </popup-carousel>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      CarouselBehavior = {
+        properties: {
+          componentName: String
+        },
+        ready: function () {
+          var boundHandler = this._childNodesChanged.bind(this);
+          this._observer = Polymer.dom(this).observeNodes(boundHandler);
+        },
+        _childNodesChanged: function (info) {
+          console.log('■■■■■ ' + this.componentName + ' ■■■■■');
+          var addedElements = info.addedNodes.filter(function (node) {
+            return (node.nodeType === Node.ELEMENT_NODE)
+          });
+          var removedElements = info.removedNodes.filter(function (node) {
+            return (node.nodeType === Node.ELEMENT_NODE)
+          });
+          console.log('● addedElements', addedElements);
+          console.log('● removedElements', removedElements);
+          console.log('● Light DOM');
+          var lightChildren = Polymer.dom(this).children;
+          for (var i = 0; i < lightChildren.length; i++) {
+            child = lightChildren[i];
+            console.log('  ', child);
+          }
+          console.log('');
+        }
+      }
+    });
+  </script>
+
+  <dom-module id="simple-carousel">
+    <script>
+      document.addEventListener('WebComponentsReady', function () {
+        Polymer({
+          is: 'simple-carousel',
+          behaviors: [CarouselBehavior],
+          created: function () {
+            this.componentName = 'simple-carousel';
+          }
+        });
+      });
+    </script>
+  </dom-module>
+
+  <dom-module id="popup-carousel">
+    <template>
+      <simple-carousel class="layout horizontal">
+        <content id="popupContentNode"></content>
+      </simple-carousel>
+      <button on-tap="_addOnTap">追加</button>
+      <button on-tap="_removeOnTap">削除</button>
+    </template>
+    <script>
+      document.addEventListener('WebComponentsReady', function () {
+        Polymer({
+          is: 'popup-carousel',
+          behaviors: [CarouselBehavior],
+          created: function () {
+            this.componentName = 'popup-carousel';
+          },
+          _addOnTap: function (event) {
+            var imgElements = Polymer.dom(this).querySelectorAll('img');
+            if (imgElements.length >= 9) {
+              return;
+            }
+            var imgEl = document.createElement('img');
+            imgEl.src = 'images/red' + (imgElements.length + 1) + '.png';
+            Polymer.dom(this).appendChild(imgEl);
+          },
+          _removeOnTap: function (event) {
+            var imgElements = Polymer.dom(this).querySelectorAll('img');
+            if (imgElements.length <= 0) {
+              return;
+            }
+            var lastImg = imgElements[imgElements.length - 1];
+            Polymer.dom(this).removeChild(lastImg);
+          }
+        });
+      });
+    </script>
+  </dom-module>
+
+</body>
+</html>

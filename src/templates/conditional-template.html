@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<employee-list></employee-list>
+
+<dom-module id="employee-list">
+  <template>
+    <div>社員リスト:</div>
+    <br>
+    <!-- 社員リストのテンプレートリピーター -->
+    <template is="dom-repeat" id="templateList" items="{{employees}}">
+      <div>
+        <!-- 社員の選択/解除のトグルボタン -->
+        <button on-tap="_selectEmployeeOnTap">Select</button>
+        <!-- 社員名 -->
+        <span>{{item.name}}</span>
+      </div>
+    </template>
+    <br>
+    <!-- 社員の選択状態を管理する配列セレクタ -->
+    <array-selector
+      id="selector" items="{{employees}}" selected="{{_selectedEmployee}}">
+    </array-selector>
+    <!-- 選択された社員ー -->
+    <div>選択された社員:</div>
+    <div>
+      <span>{{_selectedEmployee.name}}</span>
+      <!-- 選択された社員が管理者(adminがtrue)の場合のみ表示される -->
+      <template is="dom-if" if="{{_selectedEmployee.admin}}">
+        <span>(管理者)</span>
+      </template>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'employee-list',
+        ready: function () {
+          this.employees = [
+            {name: 'Bob Smith', admin: true},
+            {name: 'Sally Johnson', admin: false},
+            {name: 'John Doe', admin: true}
+          ];
+        },
+        _selectEmployeeOnTap: function (e) {
+          // エレメントと関連する配列アイテムを取得
+          var item = this.$.templateList.itemForElement(e.target);
+          // 取得した配列アイテムを選択状態にする
+          this.$.selector.select(item);
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

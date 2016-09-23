@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+<x-custom user="Taro" is-happy=true></x-custom>
+<script>
+  document.addEventListener('WebComponentsReady', function () {
+    Polymer({
+      is: 'x-custom',
+      properties: {
+        user: String,
+        isHappy: Boolean,
+        count: {
+          type: Number,
+          readOnly: true,
+          notify: true
+        }
+      },
+      ready: function () {
+        this.innerHTML = 'Hello World, I am a <b>Custom Element!</b>, '
+          + this.user + ', I am happy? ' + this.isHappy;
+      }
+    });
+  });
+</script>
+</body>
+</html>

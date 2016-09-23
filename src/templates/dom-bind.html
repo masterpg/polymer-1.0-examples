@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<!--
+  メインドキュメントでPolymerのバインディングを使用するには、
+  自動バインディングテンプレートでバインディングしたいエレメントを囲んでください
+-->
+<template id="employeeList" is="dom-bind">
+  <template is="dom-repeat" items="{{employees}}">
+    <div><span>{{item.name}}</span></div>
+  </template>
+</template>
+
+<script>
+  // 自動バインディングテンプレートを取得
+  var employeeList = document.querySelector('#employeeList');
+
+  // テンプレートがDOMツリーを更新するとdom-changeイベントが通知されます
+  employeeList.addEventListener('dom-change', function () {
+    // この時点で自動バインディングテンプレートの準備は完了している
+  });
+
+  // Web Componentsの準備が整った際(画面の準備がととのった際)の処理
+  document.addEventListener('WebComponentsReady', function () {
+    // 自動バインディングテンプレートにデータを設定
+    employeeList.employees = [
+      {name: 'Bob Smith'},
+      {name: 'Sally Johnson'},
+      {name: 'John Doe'}
+    ];
+  });
+</script>
+
+</body>
+</html>

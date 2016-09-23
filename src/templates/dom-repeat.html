@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<employee-list></employee-list>
+
+<dom-module id="employee-list">
+  <template>
+    <div>社員リスト:</div>
+    <br>
+    <!-- テンプレートリピーターを使用する -->
+    <template is="dom-repeat" items="{{employees}}">
+      <div>
+        <!-- 現在の配列アイテムのインデックス(index)を表示 -->
+        <span># <span>{{index}}</span>. </span>
+        <!-- 現在の配列アイテム(item)の内容を表示 -->
+        <span>{{item.first}}</span> <span>{{item.last}}</span>
+      </div>
+    </template>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'employee-list',
+        ready: function () {
+          this.employees = [
+            {first: 'Bob', last: 'Smith'},
+            {first: 'Sally', last: 'Johnson'},
+            {first: 'Michael', last: 'Jackson'}
+          ];
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

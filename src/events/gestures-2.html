@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <style>
+    body {
+      margin: 0; padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+<drag-me></drag-me>
+
+<dom-module id="drag-me">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 10000px;
+        height: 10000px;
+        color: white;
+        background-color: blue;;
+      }
+      .container {
+        position: relative;
+        left: 50px;
+        top: 50px;
+      }
+      #playground {
+        width: 350px;
+        height: 350px;
+        background: gray;
+      }
+    </style>
+
+    <div class="container">
+      <!-- メッセージ領域 -->
+      <div>{{message}}</div>
+      <!-- スクロールあり/なしのラジオボタン -->
+      <div>
+        <span>スクロール: </span>
+        <input type="radio" id="directionOff" name="direction" value="none"
+               on-change="_changeDirection" checked>なし
+        <input type="radio" id="directionOn" name="direction" value="all"
+               on-change="_changeDirection">あり
+        <span>(タッチ環境用の設定)</span>
+      </div>
+      <!-- ドラッグ領域 -->
+      <div id="playground" on-track="_handleTrack"></div>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'drag-me',
+        properties: {
+          message: {type: String, value: 'Drag me!'}
+        },
+        ready: function () {
+          this._changeDirection();
+        },
+        // ドラッグ領域でトラックが発生した際のハンドラ
+        _handleTrack: function (e) {
+          switch (e.detail.state) {
+            case 'start':
+              this.message = 'Tracking started!';
+              break;
+            case 'track':
+              this.message = 'Tracking in progress... ' +
+                e.detail.x + ', ' + e.detail.y;
+              break;
+            case 'end':
+              this.message = 'Tracking ended!';
+              break;
+          }
+        },
+        // スクロールのあり/なしを変更するメソッド
+        _changeDirection: function () {
+          if (this.$.directionOff.checked) {
+            this.setScrollDirection('none', this.$.playground);
+          } else if (this.$.directionOn.checked) {
+            this.setScrollDirection('all', this.$.playground);
+          }
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="my-element.html">
+</head>
+<body>
+<div id="container">
+  <my-element user-name="taro">My Element!</my-element>
+</div>
+<div>
+  <input type="button" value="削除" onclick="removeElOnClick()">
+  <input type="button" value="追加" onclick="addElOnClick()">
+</div>
+<div>
+  <input is="iron-input" id="userNameInput">
+  <input type="button" value="属性値変更" onclick="changeAttrOnClick()">
+</div>
+
+<script>
+  document.addEventListener('WebComponentsReady', function () {
+    // 画面ロード時にカスタムエレメントを取得しておきます
+    window.myEl = document.getElementsByTagName('my-element').item(0);
+  });
+
+  // コンテナからカスタムエレメントを削除します
+  function removeElOnClick() {
+    var containerEl = document.getElementById('container');
+    Polymer.dom(containerEl).removeChild(window.myEl);
+  }
+
+  // コンテナにカスタムエレメントを追加します
+  function addElOnClick() {
+    var containerEl = document.getElementById('container');
+    Polymer.dom(containerEl).appendChild(window.myEl);
+  }
+
+  // カスタムエレメントのuser-name属性の値を変更します
+  function changeAttrOnClick() {
+    var userNameInputEl = document.getElementById('userNameInput');
+    Polymer.dom(window.myEl).setAttribute('userName', userNameInputEl.value);
+  }
+</script>
+</body>
+</html>

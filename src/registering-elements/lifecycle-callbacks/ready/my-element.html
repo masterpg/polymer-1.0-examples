@@ -1,0 +1,27 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="my-element">
+  <!-- Local DOM -->
+  <template>
+    <div>ヘッダー</div>
+    <div>
+      <!-- readyコールバックでここにタイトルが設定される -->
+      <span id="contentTitle"></span>
+      <!-- カスタムエレメント利用側で｢name="content-value"｣が設定されている場合、
+           そのカスタムエレメントのコンテンツがここに流し込まれる -->
+      <content select="[name='content-value']"></content>
+    </div>
+    <div>フッター</div>
+  </template>
+
+  <script>
+    Polymer({
+      is: "my-element",
+      ready: function () {
+        // Local DOM内にある｢id="contentTitle"｣のエレメントにタイトルを設定する
+        this.$.contentTitle.textContent = 'お題は: ';
+      }
+    });
+  </script>
+</dom-module>
+

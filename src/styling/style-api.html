@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element></my-element>
+
+<dom-module id="my-toolbar">
+  <style>
+    :host {
+      padding: 4px;
+      background-color: var(--my-toolbar-bg);
+    }
+    .title {
+      color: var(--my-toolbar-color);
+    }
+  </style>
+
+  <template>
+    <span class="title"><content></content></span>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-toolbar'
+      });
+    });
+  </script>
+</dom-module>
+
+<dom-module id="my-element">
+  <style>
+    :host {
+      --my-toolbar-bg: blue;
+      --my-toolbar-color: white;
+    }
+    .warning {
+      --my-toolbar-color: red;
+    }
+  </style>
+
+  <template>
+    <my-toolbar id="toolBar">My awesome app</my-toolbar>
+    <button on-tap="changeOnTap">変更</button>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element',
+        _warn: false,
+        changeOnTap: function () {
+          this._warn = !this._warn;
+          if (this._warn) {
+            // my-toolbarにwarningクラス付加
+            this.$.toolBar.classList.add('warning');
+            // my-toolbarの背景色を緑に変更
+            this.customStyle['--my-toolbar-bg'] = 'green';
+          } else {
+            // my-toolbarのwarningクラス削除
+            this.$.toolBar.classList.remove('warning');
+            // my-toolbarの背景色を青に変更
+            this.customStyle['--my-toolbar-bg'] = 'blue';
+          }
+          // 変更したスタイルの反映(これを実行しないと変更が反映されない)
+          this.updateStyles();
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

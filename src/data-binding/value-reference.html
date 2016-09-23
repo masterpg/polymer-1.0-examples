@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<host-element></host-element>
+
+<dom-module id="custom-element">
+  <template>
+    <div>
+      <div>custom-element :</div>
+      <!-- 値参照のバインディングになる -->
+      <input value="{{user.name::input}}" placeholder="ユーザー名">
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: "custom-element",
+        properties: {
+          user: {type: Object}
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+<dom-module id="host-element">
+  <template>
+    <div>
+      <div>host-element :</div>
+      <!-- 値参照のバインディングになる -->
+      <input value="{{user.name::input}}" placeholder="ユーザー名">
+    </div>
+    <br>
+    <!-- userオブジェクトの参照を渡す -->
+    <custom-element user="{{user}}"></custom-element>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: "host-element",
+        properties: {
+          user: {
+            type: Object,
+            value: function () {
+              return {name: ''};
+            }
+          }
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

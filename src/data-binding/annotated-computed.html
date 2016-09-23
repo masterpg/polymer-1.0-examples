@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<custom-element></custom-element>
+
+<dom-module id="custom-element">
+  <template>
+    <div>first: <input value="{{first::input}}"></div>
+    <div>last: <input value="{{last::input}}"></div>
+    <div>私の名前は <span>{{_computeFullName(first, last)}}</span> です。</div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: "custom-element",
+        properties: {
+          first: {type: String, value: ''},
+          last: {type: String, value: ''}
+        },
+        _computeFullName: function (first, last) {
+          return first + ' ' + last;
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

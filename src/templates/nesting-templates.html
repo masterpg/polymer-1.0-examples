@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<employee-list></employee-list>
+
+<dom-module id="employee-list">
+  <template>
+    <div>社員リスト:</div>
+    <br>
+    <!--
+      社員リストのテンプレートリピーター
+      ・as属性で`item`の別名を`employee`としている
+    -->
+    <template is="dom-repeat" items="{{employees}}" as="employee">
+      <div>
+        <!-- 社員リストのインデックス -->
+        <span># <span>{{index}}</span>. </span>
+        <!--
+          社員名
+          ・`item`ではなく別名の`employee`を使用している
+        -->
+        <span>{{employee.name}}</span>
+      </div>
+      <div>部下リスト:</div>
+      <!--
+        部下リストのテンプレートリピーター
+        ・親スコープの`employee`にアクセスしている
+        ・index-as属性で`index`の別名を`report_no`としている
+      -->
+      <template is="dom-repeat" items="{{employee.reports}}" index-as="report_no">
+        <div>
+          <!--
+            部下リストのインデックス
+            ・`index`ではなく別名の`report_no`を使用している
+          -->
+          <span># <span>{{report_no}}</span>. </span>
+          <!-- 部下名 -->
+          <span>{{item.name}}</span>
+        </div>
+      </template>
+      <br/>
+    </template>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'employee-list',
+        ready: function () {
+          this.employees = [
+            {name: 'Taro Yamada', reports: [
+              {name: 'Takeshi Okada'},
+              {name: 'Torajiro Kuruma'}
+            ]},
+            {name: 'ichiro Suzuki', reports: [
+              {name: 'Yoshio Hara'}
+            ]}
+          ];
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

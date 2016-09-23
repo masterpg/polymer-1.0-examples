@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+
+</head>
+<body>
+
+<my-element></my-element>
+
+<dom-module id="my-toolbar">
+  <template>
+    <style>
+      :host {
+        padding: 4px;
+        background-color: gray;
+        /* mixinを適用 */
+        @apply(--my-toolbar-theme);
+      }
+      .title {
+        /* mixinを適用 */
+        @apply(--my-toolbar-title-theme);
+      }
+    </style>
+
+    <span class="title">{{titleName}}</span>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-toolbar',
+        properties: {
+          titleName: {type: String}
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      /* 通常テーマのmixinを定義し、my-toolbarに適用する */
+      :host {
+      --my-toolbar-theme: {
+         background-color: green;
+         border-radius: 4px;
+         border: 1px solid gray;
+       };
+      --my-toolbar-title-theme: {
+         color: white;
+       };
+      }
+      /* 警告用テーマのmixinを定義し、.warningクラスが設定されたmy-toolbarに適用する */
+      .warning {
+      --my-toolbar-title-theme: {
+         color: red;
+         font-weight: bold;
+       };
+      }
+    </style>
+
+    <my-toolbar title-name="This one is white."></my-toolbar>
+    <my-toolbar title-name="This one is white too."></my-toolbar>
+    <my-toolbar class="warning" title-name="This one is red."></my-toolbar>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element'
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

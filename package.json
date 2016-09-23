@@ -1,0 +1,22 @@
+{
+  "name": "polymer-1.0-examples",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masterpg/polymer-1.0-examples.git"
+  },
+  "author": "masterpg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masterpg/polymer-1.0-examples/issues"
+  },
+  "homepage": "https://github.com/masterpg/polymer-1.0-examples#readme",
+  "scripts": {
+    "dev": "lite-server"
+  },
+  "dependencies": {
+    "lite-server": "^2.2.2"
+  },
+  "devDependencies": {}
+}

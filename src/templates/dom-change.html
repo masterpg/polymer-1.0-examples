@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<employee-list></employee-list>
+
+<dom-module id="employee-list">
+  <template>
+    <template is="dom-repeat" id="templateList" items="{{employees}}">
+      <div>
+        <!-- 管理者チェックボックス -->
+        <input type="checkbox" checked="{{item.admin::change}}">
+        <!-- 社員名 -->
+        <span>{{item.name}}</span>
+        <!-- 管理者ラベル -->
+        <template is="dom-if" if="{{item.admin}}">
+          <span>(管理者)</span>
+        </template>
+      </div>
+    </template>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'employee-list',
+        listeners: {
+          'dom-change': '_onDomChange'
+        },
+        ready: function () {
+          this.employees = [
+            {name: 'Bob Smith', admin: true},
+            {name: 'Sally Johnson', admin: false},
+            {name: 'John Doe', admin: true}
+          ];
+        },
+        // ホスト内のいずれかのテンプレートエレメントがDOMツリーを更新すると
+        // この`dom-change`イベントハンドラが呼び出されます。
+        _onDomChange: function (event) {
+          console.log('■■■ rootTarget  ■■■');
+          console.log(Polymer.dom(event).rootTarget);
+          console.log('■■■ localTarget ■■■');
+          console.log(Polymer.dom(event).localTarget);
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

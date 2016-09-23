@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+<x-custom></x-custom>
+<dom-module id="x-custom">
+  <template>
+    <div>
+      <input id="nameInput" is="iron-input" placeholder="名前">
+      <button on-tap="_addUserOnTap">追加</button>
+      <template is="dom-repeat" id="userList" items="{{users}}" as="user">
+        <div>
+          <input is="iron-input" value="{{user.name}}">
+          <span>{{user.counter}}</span>
+          <button on-tap="_incrementOnTap">＋</button>
+          <button on-tap="_removeUserOnTap">削除</button>
+        </div>
+      </template>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      var User = function (name) {
+        this.name = name;
+        this.counter = 0;
+      };
+
+      Polymer({
+        is: 'x-custom',
+        properties: {
+          users: {
+            type: Array,
+            value: function () {
+              return [];
+            }
+          }
+        },
+        observers: [
+          // パスにワイルドカードを付加
+          '_usersAddedOrRemoved(users.*)'
+        ],
+        _usersAddedOrRemoved: function (changeRecord) {
+          if (!changeRecord) {
+            return;
+          }
+          if (changeRecord.path == 'users.splices') {
+            changeRecord.value.indexSplices.forEach(function (s) {
+              // 削除されたユーザーをログ表示
+              s.removed.forEach(function (user) {
+                console.log(user.name + ' was removed');
+              });
+              // 追加されたユーザー数をログ表示
+              console.log(s.addedCount + ' users were added');
+            }, this);
+          } else {
+            // パスからインデックスの取り出し
+            // 例: "users.12.counter"または"users.#12.counter"
+            //     のようなパスから"12"を取り出す
+            var found = changeRecord.path.match(/^users.#?(\d+)/);
+            if (!found) {
+              return;
+            }
+            var index = parseInt(found[1]);
+            // 取得したインデックスで編集されたユーザーを取得
+            var user = changeRecord.base[index];
+            // 編集されたユーザー数をログ表示
+            console.log(user.name + ' was edited');
+          }
+        },
+        _addUserOnTap: function (e) {
+          // ユーザーを追加
+          this.push('users', new User(this.$.nameInput.value));
+        },
+        _removeUserOnTap: function (e) {
+          // ユーザーを削除
+          this.splice('users', e.model.index, 1);
+        },
+        _incrementOnTap: function (e) {
+          // ユーザーのカウンターをインクリメント
+          var model = e.model;
+          var user = model.user;
+          model.set('user.counter', user.counter + 1);
+        }
+      });
+    });
+  </script>
+</dom-module>
+</body>
+</html>

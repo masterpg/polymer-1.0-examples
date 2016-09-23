@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<my-element></my-element>
+
+<dom-module id="my-toolbar">
+  <template>
+    <style>
+      :host {
+        padding: 4px;
+        background-color: blue;
+        /* タイトルのデフォルトは白色 */
+        color: white;
+      }
+      .title {
+        color: var(--my-toolbar-title);
+      }
+    </style>
+
+    <span id="title" class="title"><content></content></span>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'my-toolbar'
+    });
+  </script>
+</dom-module>
+
+<dom-module id="my-element">
+  <template>
+    <style>
+      .warning {
+        --my-toolbar-title: pink;
+      }
+      .error {
+        --my-toolbar-title: red;
+      }
+    </style>
+
+    <my-toolbar id="toolBar" class="aaa">My awesome app</my-toolbar>
+    <button on-tap="normalOnTap">通常</button>
+    <button on-tap="warnOnTap">警告</button>
+    <button on-tap="errorOnTap">エラー</button>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'my-element',
+        normalOnTap: function () {
+          // my-toolbarのwarning, errorクラスを削除
+          this.$.toolBar.classList.remove('warning');
+          this.$.toolBar.classList.remove('error');
+          this.updateStyles();
+        },
+        warnOnTap: function () {
+          // my-toolbarのwarningクラス付加
+          this.$.toolBar.classList.remove('error');
+          this.$.toolBar.classList.add('warning');
+          this.updateStyles();
+        },
+        errorOnTap: function () {
+          // my-toolbarのerrorクラス付加
+          this.$.toolBar.classList.remove('warning');
+          this.$.toolBar.classList.add('error');
+          this.updateStyles();
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

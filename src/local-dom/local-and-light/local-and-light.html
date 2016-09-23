@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../../../bower_components/polymer/polymer.html">
+</head>
+<body>
+
+<!-- この中のエレメントはLight DOMに追加される -->
+<x-custom>
+  <span>山田</span>
+  <span>太郎</span>
+</x-custom>
+
+<dom-module id="x-custom">
+  <!-- この中のエレメントはLocal DOMに追加される -->
+  <template>
+    <div id="container" style="border: solid red;">
+      <span>私は</span>
+      <content></content>
+      <span>です。</span>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'x-custom',
+        attached: function () {
+          var i, j, child, grandchild;
+          console.log('■■■ Light DOM ■■■');
+          var lightChildren = Polymer.dom(this).children;
+          for (i = 0; i < lightChildren.length; i++) {
+            child = lightChildren[i];
+            console.log(child);
+          }
+          console.log('■■■ Local DOM (結合結果) ■■■');
+          var resultChildren = Polymer.dom(this.root).children;
+          for (i = 0; i < resultChildren.length; i++) {
+            child = resultChildren[i];
+            console.log(child);
+          }
+          console.log('■■■ Local DOM (テンプレート) ■■■');
+          // <template>の中にあるid="container"のdivを取得
+          var container = Polymer.dom(this.root).children[0];
+          var containerChildren = Polymer.dom(container).children;
+          for (i = 0; i < containerChildren.length; i++) {
+            child = containerChildren[i];
+            console.log(child);
+          }
+        }
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>
