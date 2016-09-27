@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+  <link rel="import" href="../../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+  <style>
+    html, body, flex-layout-demo {
+      height: 100%;
+    }
+
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="fullbleed">
+
+<flex-layout-demo></flex-layout-demo>
+
+<dom-module id="flex-layout-demo">
+  <style>
+    :host > div {
+      /*width: 500px;*/
+      margin: 10px;
+      padding: 5px;
+      background-color: lightgray;
+    }
+
+    :host > div > div {
+      background-color: white;
+      margin: 5px;
+      padding: 10px;
+    }
+  </style>
+
+  <template>
+    <div class="layout horizontal">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+    </div>
+
+    <div class="layout vertical">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+    </div>
+
+    <div class="layout horizontal" style="height: 150px;">
+      <div>Stretch Fill</div>
+      <div>Stretch Fill</div>
+    </div>
+
+    <div class="layout vertical" style="height: 150px;">
+      <div>Stretch Fill</div>
+      <div>Stretch Fill</div>
+    </div>
+
+    <div class="layout horizontal">
+      <div>One</div>
+      <div class="flex">Two (flex)</div>
+      <div>Three</div>
+    </div>
+
+    <div class="layout vertical" style="height: 250px;">
+      <div>One</div>
+      <div class="flex">Two (flex)</div>
+      <div>Three</div>
+    </div>
+
+    <div class="layout vertical">
+      <div>One</div>
+      <div class="flex">Two (flex)</div>
+      <div>Three</div>
+    </div>
+
+    <div class="layout horizontal">
+      <div class="flex-3">One</div>
+      <div class="flex">Two</div>
+      <div class="flex-2">Three</div>
+    </div>
+
+    <div class="layout horizontal" style="height: 150px;">
+      <div class="flex">Fit</div>
+    </div>
+
+    <div class="layout horizontal start" style="height: 150px;">
+      <div>start</div>
+      <div>start</div>
+    </div>
+
+    <div class="layout horizontal center" style="height: 150px;">
+      <div>center</div>
+      <div>center</div>
+    </div>
+
+    <div class="layout horizontal end" style="height: 150px;">
+      <div>end</div>
+      <div>end</div>
+    </div>
+
+    <div class="layout horizontal center-center" style="height: 150px;">
+      <div>center-center</div>
+      <div>center-center</div>
+    </div>
+
+    <div class="layout horizontal start-justified" style="height: 100px;">
+      <div>start-justified</div>
+    </div>
+
+    <div class="layout horizontal center-justified" style="height: 100px;">
+      <div>center-justified</div>
+    </div>
+
+    <div class="layout horizontal end-justified" style="height: 100px;">
+      <div>end-justified</div>
+    </div>
+
+    <div class="layout horizontal justified" style="height: 100px;">
+      <div>justified</div>
+      <div>justified</div>
+      <div>justified</div>
+    </div>
+
+    <div class="layout horizontal around-justified" style="height: 100px;">
+      <div>around-justified</div>
+      <div>around-justified</div>
+    </div>
+
+    <div class="layout horizontal justified" style="height: 150px;">
+      <div class="flex self-start">Alpha</div>
+      <div class="flex self-center">Beta</div>
+      <div class="flex self-end">Gamma</div>
+      <div class="flex self-stretch">Delta</div>
+    </div>
+
+    <div class="layout horizontal wrap" style="width: 250px;">
+      <div>Alpha</div>
+      <div>Beta</div>
+      <div>Gamma</div>
+      <div>Delta</div>
+    </div>
+
+    <div class="layout horizontal-reverse">
+      <div>Alpha</div>
+      <div>Beta</div>
+      <div>Gamma</div>
+      <div>Delta</div>
+    </div>
+
+    <div class="layout vertical">
+      <div>Before <span>[A Span]</span> After</div>
+      <div>Before <span class="block">[A Block Span]</span> After</div>
+      <div>Before <span class="invisible">[A Invisible Span]</span> After</div>
+      <div class="relative" style="height: 100px;">
+        <div class="fit" style="background-color: black; color: white">Fit</div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({
+        is: 'flex-layout-demo'
+      });
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>

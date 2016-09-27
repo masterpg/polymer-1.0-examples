@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../../bower_components/polymer/polymer.html">
+  <link rel="import" href="../../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+</head>
+
+<body class="fullbleed layout vertical">
+
+  <my-app class="flex"></my-app>
+
+  <dom-module id="my-app">
+    <style>
+      :host {
+        background-color: greenyellow;
+      }
+    </style>
+    <template>
+      Fitting a fullbleed body.
+    </template>
+    <script>
+      document.addEventListener('WebComponentsReady', function () {
+        Polymer({ is: 'my-app' });
+      });
+    </script>
+  </dom-module>
+
+</body>
+
+</html>

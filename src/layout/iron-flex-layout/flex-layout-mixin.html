@@ -1,0 +1,615 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../../../bower_components/iron-flex-layout/iron-flex-layout.html">
+  <link rel="import" href="../../../bower_components/iron-flex-layout/classes/iron-flex-layout.html">
+  <style is="custom-style">
+    :root {
+      --flex-layout-container: {
+        /*width: 500px;*/
+        margin: 10px;
+        padding: 5px;
+        background-color: lightgray;
+      };
+      --flex-layout-child: {
+        background-color: white;
+        margin: 5px;
+        padding: 10px;
+      };
+    }
+  </style>
+</head>
+<body class="fullbleed layout vertical">
+<div class="flex">
+  <horizontal-and-vertical-demo></horizontal-and-vertical-demo>
+  <horizontal-stretch-demo></horizontal-stretch-demo>
+  <vertical-stretch-demo></vertical-stretch-demo>
+  <horizontal-flex-demo></horizontal-flex-demo>
+  <vertical-flex-demo></vertical-flex-demo>
+  <vertical-flex-demo-2></vertical-flex-demo-2>
+  <horizontal-flex-ratio-demo></horizontal-flex-ratio-demo>
+  <horizontal-fit-demo></horizontal-fit-demo>
+  <horizontal-start-demo></horizontal-start-demo>
+  <horizontal-center-demo></horizontal-center-demo>
+  <horizontal-end-demo></horizontal-end-demo>
+  <horizontal-center-center-demo></horizontal-center-center-demo>
+  <horizontal-start-justified-demo></horizontal-start-justified-demo>
+  <horizontal-center-justified-demo></horizontal-center-justified-demo>
+  <horizontal-end-justified-demo></horizontal-end-justified-demo>
+  <horizontal-justified-demo></horizontal-justified-demo>
+  <horizontal-around-justified-demo></horizontal-around-justified-demo>
+  <horizontal-self-demo></horizontal-self-demo>
+  <horizontal-wrap-demo></horizontal-wrap-demo>
+  <horizontal-reverse-demo></horizontal-reverse-demo>
+</div>
+
+<dom-module id="horizontal-and-vertical-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container-horizontal {
+      @apply(--layout-horizontal);
+    }
+    .container-vertical {
+      @apply(--layout-vertical);
+    }
+  </style>
+  <template>
+    <div class="container-horizontal">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+    </div>
+    <div class="container-vertical">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-and-vertical-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-stretch-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div>Stretch Fill</div>
+      <div>Stretch Fill</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-stretch-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="vertical-stretch-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-vertical);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div>Stretch Fill</div>
+      <div>Stretch Fill</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'vertical-stretch-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-flex-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+    }
+    .flexchild {
+      @apply(--layout-flex);
+    }
+  </style>
+  <template>
+    <div class="container">
+      <div>One</div>
+      <div class="flexchild">Two (flex)</div>
+      <div>Three</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-flex-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="vertical-flex-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-vertical);
+    }
+    .flexchild {
+      @apply(--layout-flex);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 250px;">
+      <div>One</div>
+      <div class="flexchild">Two (flex)</div>
+      <div>Three</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'vertical-flex-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="vertical-flex-demo-2">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-vertical);
+    }
+    .flexchild {
+      @apply(--layout-flex);
+    }
+  </style>
+  <template>
+    <div class="container">
+      <div>One</div>
+      <div class="flexchild">Two (flex)</div>
+      <div>Three</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'vertical-flex-demo-2'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-flex-ratio-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+    }
+    .flexchild {
+      @apply(--layout-flex);
+    }
+    .flex2child {
+      @apply(--layout-flex-2);
+    }
+    .flex3child {
+      @apply(--layout-flex-3);
+    }
+  </style>
+  <template>
+    <div class="container">
+      <div class="flex3child">One</div>
+      <div class="flexchild">Two</div>
+      <div class="flex2child">Three</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-flex-ratio-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-fit-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+    }
+    .flexchild {
+      @apply(--layout-flex);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div class="flexchild">Fit</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-fit-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-start-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-start);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div>start</div>
+      <div>start</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-start-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-center-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div>center</div>
+      <div>center</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-center-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-end-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-end);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div>end</div>
+      <div>end</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-end-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-center-center-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-center);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div>center-center</div>
+      <div>center-center</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-center-center-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-start-justified-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-start-justified);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 100px;">
+      <div>start-justified</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-start-justified-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-center-justified-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-center-justified);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 100px;">
+      <div>center-justified</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-center-justified-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-end-justified-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-end-justified);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 100px;">
+      <div>end-justified</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-end-justified-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-justified-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-justified);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 100px;">
+      <div>justified</div>
+      <div>justified</div>
+      <div>justified</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-justified-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-around-justified-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-around-justified);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 100px;">
+      <div>around-justified</div>
+      <div>around-justified</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-around-justified-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-self-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-justified);
+    }
+    .child1 {
+      @apply(--layout-self-start);
+      @apply(--layout-flex);
+    }
+    .child2 {
+      @apply(--layout-self-center);
+      @apply(--layout-flex);
+    }
+    .child3 {
+      @apply(--layout-self-end);
+      @apply(--layout-flex);
+    }
+    .child4 {
+      @apply(--layout-self-stretch);
+      @apply(--layout-flex);
+    }
+  </style>
+  <template>
+    <div class="container" style="height: 150px;">
+      <div class="child1">Alpha</div>
+      <div class="child2">Beta</div>
+      <div class="child3">Gamma</div>
+      <div class="child4">Delta</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-self-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-wrap-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout-horizontal);
+      @apply(--layout-wrap);
+    }
+  </style>
+  <template>
+    <div class="container" style="width: 250px;">
+      <div>Alpha</div>
+      <div>Beta</div>
+      <div>Gamma</div>
+      <div>Delta</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-wrap-demo'});
+    });
+  </script>
+</dom-module>
+
+<dom-module id="horizontal-reverse-demo">
+  <style>
+    :host > div {
+      @apply(--flex-layout-container);
+    }
+    :host > div > div {
+      @apply(--flex-layout-child);
+    }
+    .container {
+      @apply(--layout);
+      @apply(--layout-horizontal-reverse);
+    }
+  </style>
+  <template>
+    <div class="container">
+      <div>Alpha</div>
+      <div>Beta</div>
+      <div>Gamma</div>
+      <div>Delta</div>
+    </div>
+  </template>
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      Polymer({is: 'horizontal-reverse-demo'});
+    });
+  </script>
+</dom-module>
+
+</body>
+</html>
