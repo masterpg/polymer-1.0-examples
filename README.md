@@ -31,5 +31,5 @@ $ npm run dev
 起動したら実行したいサンプルのHTMLへURLでアクセスしてください:
 
 ```
-http://localhost:3000/quick-toor/register-an-element/index.html
+http://localhost:3000/src/quick-toor/register-an-element/index.html
 ```
